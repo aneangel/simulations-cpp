@@ -109,7 +109,7 @@ void initOpenGL() {
     }
 
     // Create window
-    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "OpenGL Window", NULL, NULL);
     if (!window) {
         // Handle window creation failure
         glfwTerminate();
@@ -125,29 +125,29 @@ void initOpenGL() {
         return;
     }
 
-    // Compile and link shaders
-    // This is a simplified version; you'd need actual shader code
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    // Compile shaders...
+    // // Compile and link shaders
+    // // This is a simplified version; you'd need actual shader code
+    // GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    // GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    // // Compile shaders...
 
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    // Check for linking errors...
+    // GLuint shaderProgram = glCreateProgram();
+    // glAttachShader(shaderProgram, vertexShader);
+    // glAttachShader(shaderProgram, fragmentShader);
+    // glLinkProgram(shaderProgram);
+    // // Check for linking errors...
 
-    // Set up projection and view matrices
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, 3.0f), // Camera position
-        glm::vec3(0.0f, 0.0f, 0.0f), // Look at point
-        glm::vec3(0.0f, 1.0f, 0.0f)  // Up vector
-    );
+    // // Set up projection and view matrices
+    // glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    // glm::mat4 view = glm::lookAt(
+    //     glm::vec3(0.0f, 0.0f, 3.0f), // Camera position
+    //     glm::vec3(0.0f, 0.0f, 0.0f), // Look at point
+    //     glm::vec3(0.0f, 1.0f, 0.0f)  // Up vector
+    // );
 
-    // Use shader program and set matrices
-    glUseProgram(shaderProgram);
-    // Set uniform variables for matrices in shader...
+    // // Use shader program and set matrices
+    // glUseProgram(shaderProgram);
+    // // Set uniform variables for matrices in shader...
 }
 
 void initParticles() {
