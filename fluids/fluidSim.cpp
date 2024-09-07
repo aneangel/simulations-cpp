@@ -1,8 +1,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 #include <vector>
 #include <cmath>
 #include <random>
@@ -99,6 +101,53 @@ void initOpenGL() {
     // Set up OpenGL context
     // Compile and link shaders
     // Set up projection and view matrices
+
+    // Initialize GLFW
+    if (!glfwInit()) {
+        // Handle initialization failure
+        return;
+    }
+
+    // Create window
+    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", NULL, NULL);
+    if (!window) {
+        // Handle window creation failure
+        glfwTerminate();
+        return;
+    }
+
+    // Make the window's context current
+    glfwMakeContextCurrent(window);
+
+    // Load OpenGL functions
+    if (glewInit() != GLEW_OK) {
+        // Handle GLEW initialization failure
+        return;
+    }
+
+    // Compile and link shaders
+    // This is a simplified version; you'd need actual shader code
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    // Compile shaders...
+
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+    // Check for linking errors...
+
+    // Set up projection and view matrices
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f), // Camera position
+        glm::vec3(0.0f, 0.0f, 0.0f), // Look at point
+        glm::vec3(0.0f, 1.0f, 0.0f)  // Up vector
+    );
+
+    // Use shader program and set matrices
+    glUseProgram(shaderProgram);
+    // Set uniform variables for matrices in shader...
 }
 
 void initParticles() {
