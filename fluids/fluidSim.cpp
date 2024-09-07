@@ -7,6 +7,8 @@
 #include <cmath>
 #include <random>
 
+#include <iostream>
+
 // Shader sources
 const char* vertexShaderSource = R"(
     #version 330 core
