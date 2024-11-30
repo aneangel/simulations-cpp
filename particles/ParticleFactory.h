@@ -5,37 +5,11 @@
 #include <string>
 #include <stdexcept>
 
-struct float3 {
-    float x, y, z;
-
-    float3 operator+(const float3& other) const {
-        return {x + other.x, y + other.y, z + other.z};
-    }
-
-    float3& operator+=(const float3& other) {
-        x += other.x;
-        y += other.y;
-        z += other.z;
-        return *this;
-    }
-
-    float3 operator*(float scalar) const {
-        return {x * scalar, y *scalar, z * scalar};
-    }
-
-    float3& operator*=(float scalar) {
-        x *= scalar;
-        y *= scalar;
-        z *= scalar;
-        return *this;
-    }
-};
-
 class Particle {
 public:
     struct float3 { float x, y, z; };
-    float3 position;
-    float3 velocity;
+    glm::vec3 position;
+    glm::vec3 velocity;
     float density;
     float pressure;
 

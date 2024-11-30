@@ -2,6 +2,8 @@
 #include <vector>
 #include <memory>
 #include <GL/glut.h>
+#include <glm/glm.hpp>
+#include <glm/vec3.hpp>
 #include "ParticleFactory.h"
 #include "KernelFactory.h"
 #include "ForceFactory.h"
@@ -58,7 +60,7 @@ void initSimulation() {
 
 void updateSimulation() {
     for (auto& particle : particles) {
-        float3 acceleration = { 0.0f, 0.0f, 0.0f };
+        glm::vec3 acceleration = { 0.0f, 0.0f, 0.0f };
 
         for (auto& force : forces) {
             acceleration += force->computeForce(*particle);
