@@ -17,3 +17,4 @@ softBody/*
 
 !*.cpp
 !*.h
+build/
