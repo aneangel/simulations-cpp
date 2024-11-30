@@ -55,9 +55,8 @@ void initSimulation() {
     }
 
     forces.push_back(ForceFactory::createForce("gravity"));
-    forces.push_back(ForceFactory::createForce("viscosity"));
 
-    boundary = BoundaryFactory::createBoundary("solid");
+    // boundary = BoundaryFactory::createBoundary("solid");
 
     std::cout << "Simulation initalized with " << numParticles << " particles.\n";
 }
@@ -92,20 +91,29 @@ void updateSimulation(float screenWidth, float screenHeight) {
 }
 
 void renderParticles() {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glLoadIdentity();
-
+    glPointSize(5.0f);  // Set particle size
+    glColor3f(1.0f, 0.0f, 0.0f);  // Red particles
     glBegin(GL_POINTS);
     for (const auto& particle : particles) {
-        glVertex2f(particle->position.x / domainSize, particle->position.y / domainSize);
+        float x = particle->position.x * screenWidth;  // Scale x to screen width
+        float y = particle->position.y * screenHeight; // Scale y to screen height
+        glVertex2f(x, y);
     }
-
     glEnd();
 }
 
 void display() {
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);  // Set background to dark gray
     glClear(GL_COLOR_BUFFER_BIT);
-    renderParticles();
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, screenWidth, 0, screenHeight);  // Match simulation coordinates
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    renderParticles();  // Render the particles
+
     glutSwapBuffers();
 }
 

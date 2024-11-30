@@ -18,3 +18,4 @@ softBody/*
 !*.cpp
 !*.h
 build/
+./particle_simulation
