@@ -17,6 +17,8 @@ std::string simulationTitle = "Particle Fuild Simulation";
 const float dt = 0.01f;
 const int numParticles = 1000;
 const float domainSize = 1.0f;
+const float screenWidth = 800.0f;
+const float screenHeight = 600.0f;
 
 void initSimulation();
 void updateSimulation();
@@ -28,12 +30,14 @@ void idle();
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(800, 600);
+    glutInitWindowSize(screenWidth, screenHeight);
+
     glutCreateWindow(simulationTitle.c_str());
+    
+    initSimulation();
+
     glutDisplayFunc(display);
     glutIdleFunc(idle);
-
-    initSimulation();
 
     glutMainLoop();
 
@@ -58,7 +62,7 @@ void initSimulation() {
     std::cout << "Simulation initalized with " << numParticles << " particles.\n";
 }
 
-void updateSimulation() {
+void updateSimulation(float screenWidth, float screenHeight) {
     for (auto& particle : particles) {
         glm::vec3 acceleration = { 0.0f, 0.0f, 0.0f };
 
@@ -69,7 +73,21 @@ void updateSimulation() {
         particle->velocity += acceleration * dt;
         particle->position += particle->velocity * dt;
 
-        boundary->apply(*particle);
+        if (particle->position.x < 0.0f) {
+            particle->position.x = 0.0f;
+            particle->velocity.x = -particle->velocity.x;
+        } else if (particle->position.x > screenWidth) {
+            particle->position.x = screenWidth;
+            particle->velocity.x = -particle->velocity.x;
+        }
+
+        if (particle->position.y < 0.0f) {
+            particle->position.y = 0.0f;
+            particle->velocity.y = -particle->velocity.y;
+        } else if (particle->position.y > screenHeight) {
+            particle->position.y = screenHeight;
+            particle->velocity.y = -particle->velocity.y;
+        }
     }
 }
 
@@ -86,11 +104,12 @@ void renderParticles() {
 }
 
 void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
     renderParticles();
     glutSwapBuffers();
 }
 
 void idle() {
-    updateSimulation();
+    updateSimulation(screenWidth, screenHeight);
     glutPostRedisplay();
 }
