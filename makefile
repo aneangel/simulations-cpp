@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -I/usr/include/glm
+CXXFLAGS = -std=c++17 -Wall -I/usr/include/glm -Iinclude
 
 # Libraries
 LIBS = -lGL -lGLU -lglut
